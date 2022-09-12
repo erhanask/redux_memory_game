@@ -125,16 +125,38 @@ const cardSlice = createSlice({
                 img: '/card-images/shooting-star.png',
                 isFlipped: false,
             },
-        ].sort(() => Math.random() - 0.5)
+        ].sort(() => Math.random() - 0.5),
+        selectedItems: [],
+        trueItems: [],
     },
     reducers: {
-        flipCard : (state, action) => {
+        flipCard: (state, action) => {
             state.items.find(item => item.id === action.payload).isFlipped = true;
+        },
+        addToSelectedItems: (state, action) => {
+
+            if (state.selectedItems.length === 2)
+                state.selectedItems = [];
+            if (state.selectedItems.length < 2) {
+                state.selectedItems.push(action.payload);
+                if (state.selectedItems[1] !== undefined && state.selectedItems[0].name === state.selectedItems[1].name) {
+                    state.trueItems.push(state.selectedItems[0], state.selectedItems[1]);
+                } else {
+                    if (state.selectedItems[1] !== undefined) {
+                        state.items.find(item => item.id === state.selectedItems[0].id).isFlipped = false;
+                        state.items.find(item => item.id === state.selectedItems[1].id).isFlipped = false;
+                    }
+                }
+            }
+
+            console.log(JSON.stringify(state.selectedItems));
+            console.log(JSON.stringify(state.trueItems));
+
         }
     }
 })
 
 export const normalCards = state => state.cards.items;
 
-export const {flipCard} = cardSlice.actions;
+export const {flipCard, addToSelectedItems} = cardSlice.actions;
 export default cardSlice.reducer;
