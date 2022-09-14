@@ -10,19 +10,25 @@ export const CardList = () => {
         dispatch(flipCard(card.id));
         setTimeout(() => {
             dispatch(addToSelectedItems(card))
-        }, 1000)
+        }, 350)
     }
 
     return (
         <ul className="cards">
             {
                 cards.map(card =>
-                    <li onClick={event => {cardEvent(card)}} key={card.id} className={`${card.id} card ${card.isFlipped ? `flip` : ''}`}>
+                    <li onClick={event => {
+                        cardEvent(card)
+                    }} key={card.id} className={`${card.id} card ${card.isFlipped || card.isFound ? `flip` : ''}`}>
                         <div className="view front-view">
                             <img src="/card-images/default.png" alt="icon"/>
                         </div>
                         <div className="view back-view">
                             <img src={card.img} alt="card-img"/>
+                        </div>
+                        <div>
+                            {card.isFlipped}
+                            {card.isFound}
                         </div>
                     </li>
                 )
