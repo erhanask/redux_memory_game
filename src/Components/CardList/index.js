@@ -7,10 +7,11 @@ export const CardList = () => {
     const dispatch = useDispatch();
 
     const cardEvent = (card) => {
-        dispatch(flipCard(card.id));
         setTimeout(() => {
             dispatch(addToSelectedItems(card))
         }, 350)
+        dispatch(flipCard(card.id));
+
     }
 
     return (

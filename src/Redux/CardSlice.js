@@ -59,17 +59,20 @@ const cardSlice = createSlice({
                 if (state.selectedItems[1] !== undefined && state.selectedItems[0].name === state.selectedItems[1].name) {
                     // eşleşenler trueItems içine
                     state.trueItems.push(state.selectedItems[0], state.selectedItems[1]);
+                    state.items.find(item => item.id === state.selectedItems[0].id).isFound = true;
+                    state.items.find(item => item.id === state.selectedItems[1].id).isFound = true;
+                    state.items.find(item => item.id === state.selectedItems[0].id).isFlipped = false;
+                    state.items.find(item => item.id === state.selectedItems[1].id).isFlipped = false;
                 } else {
                     // eşleşmeyenlerin değerleri set ediliyor.
                     if (state.selectedItems[1] !== undefined) {
                         state.items.find(item => item.id === state.selectedItems[0].id).isFlipped = false;
                         state.items.find(item => item.id === state.selectedItems[1].id).isFlipped = false;
-                        state.items.find(item => item.id === state.selectedItems[0].id).isFound = true;
-                        state.items.find(item => item.id === state.selectedItems[1].id).isFound = true
+                        console.log(23322);
                     }
                 }
             }
-            //todo: changes will made according to isFound property
+            //todo: points and others will be setted.
             console.log(JSON.stringify(state.selectedItems));
             console.log(JSON.stringify(state.trueItems));
 
