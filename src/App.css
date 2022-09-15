@@ -116,3 +116,14 @@ body{
     max-width: 35px;
   }
 }
+
+.try_button {
+  align-self: center;
+  margin: auto auto;
+  font-size: 25px;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: #52516a;
+  color: white;
+  font-family: monospace;
+}

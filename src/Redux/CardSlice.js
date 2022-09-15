@@ -2,8 +2,10 @@ import {createSlice} from "@reduxjs/toolkit";
 
 
 const cardSlice = createSlice({
-    name: 'cards', initialState: {
-        items: [{
+    name: 'cards',
+    initialState: {
+        items: [
+            {
             id: '1', name: 'item_1', img: '/card-images/asteroid.png', isFlipped: false,isFound: false
         }, {
             id: '2', name: 'item_2', img: '/card-images/astronaut.png', isFlipped: false,isFound: false
@@ -43,7 +45,10 @@ const cardSlice = createSlice({
             id: '19', name: 'item_9', img: '/card-images/rocket.png', isFlipped: false, isFound: false
         }, {
             id: '20', name: 'item_10', img: '/card-images/shooting-star.png', isFlipped: false, isFound: false
-        },].sort(() => Math.random() - 0.5), selectedItems: [], trueItems: [],
+        },].sort(() => Math.random() - 0.5),
+        selectedItems: [],
+        trueItems: [],
+        points: 100
     }, reducers: {
         flipCard: (state, action) => {
             if (state.items.filter(item => item.isFlipped === true).length < 2) {
@@ -63,12 +68,13 @@ const cardSlice = createSlice({
                     state.items.find(item => item.id === state.selectedItems[1].id).isFound = true;
                     state.items.find(item => item.id === state.selectedItems[0].id).isFlipped = false;
                     state.items.find(item => item.id === state.selectedItems[1].id).isFlipped = false;
+                    state.points+=50;
                 } else {
                     // eşleşmeyenlerin değerleri set ediliyor.
                     if (state.selectedItems[1] !== undefined) {
                         state.items.find(item => item.id === state.selectedItems[0].id).isFlipped = false;
                         state.items.find(item => item.id === state.selectedItems[1].id).isFlipped = false;
-                        console.log(23322);
+                        state.points-=10;
                     }
                 }
             }
@@ -82,6 +88,7 @@ const cardSlice = createSlice({
 
 export const normalCards = state => state.cards.items;
 export const selectedItems = state => state.cards.selectedItems;
+export const getPoints = state => state.cards.points;
 
 export const {flipCard, addToSelectedItems} = cardSlice.actions;
 export default cardSlice.reducer;
