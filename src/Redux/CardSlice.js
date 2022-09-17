@@ -78,17 +78,14 @@ const cardSlice = createSlice({
                     }
                 }
             }
-            //todo: points and others will be setted.
-            console.log(JSON.stringify(state.selectedItems));
-            console.log(JSON.stringify(state.trueItems));
-
         }
     }
 })
 
 export const normalCards = state => state.cards.items;
-export const selectedItems = state => state.cards.selectedItems;
 export const getPoints = state => state.cards.points;
+export const trueCards = state => state.cards.trueItems;
+
 
 export const {flipCard, addToSelectedItems} = cardSlice.actions;
 export default cardSlice.reducer;

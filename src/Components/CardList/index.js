@@ -1,10 +1,11 @@
-import {addToSelectedItems, flipCard, getPoints, normalCards} from "../../Redux/CardSlice";
+import {addToSelectedItems, flipCard, getPoints, normalCards, trueCards} from "../../Redux/CardSlice";
 import {useDispatch, useSelector} from "react-redux";
 
 export const CardList = () => {
 
     const cards = useSelector(normalCards);
     const points = useSelector(getPoints);
+    const trueItems = useSelector(trueCards);
     const dispatch = useDispatch();
 
     const cardEvent = (card) => {
@@ -21,8 +22,8 @@ export const CardList = () => {
                 Points : {points}
             </div>
             <ul className="cards">
-                { points == 0 ?
-                    <button className={`try_button`}>
+                { points === 0 || trueItems.length === 20 ?
+                    <button className={`try_button`} onClick={e=> window.location.reload()}>
                         Your Point {points}
                         <br/>
                         Try Again !
